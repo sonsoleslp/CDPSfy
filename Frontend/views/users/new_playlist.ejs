@@ -1,0 +1,17 @@
+
+<div class="wow bounce total">
+<div class="interna">
+
+<h2 id="playlists">New playlist</h2>
+<form id="newpl" action="/user/playlists/create" method="post">  
+<label for="nombre" class="upload_field">Name:</label><br>
+<input id="plnm" type="text" name="nombre" placeholder="Name"><br><br>  
+<select name="songsofplaylist" class="seleccion" multiple>
+<%for (var t in tracks) {%>
+ <option  class="opcion" value="<%=tracks[t]._id%>"><%=tracks[t].name%></option>
+<%}%>
+</select><br>
+
+<button type="submit" class="btn btn-1 btn-1d">Create</button><br><br>
+</form>
+</div></div>

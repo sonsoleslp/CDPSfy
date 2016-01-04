@@ -1,0 +1,20 @@
+<form action="/user/create" method="post">  
+<div class="wow bounceInUp formulario">
+<% if (session.errors) { %>
+<%=JSON.stringify(session.errors.message)%><br>
+<%}%>
+  <label  class="upload_field"><b>New user:</b></label><br><br>
+  <label for="nombre" class="upload_field">username:</label><br>
+  <input type="text" name="nombre" placeholder="username"><br><br>
+  <label for="password" class="upload_field">password:</label><br>
+  <input type="password" name="password" placeholder="password"><br><br>
+<!--     <label for="caratula" class="upload_field">File:</label><br>
+  <input class="upload_field" type="file" accept=".mp3,.wav,.ogg" name="track"/><br><br> 
+  <label for="caratula" class="upload_field">Cover:</label><br>
+  <input class="upload_field" type="file" accept="image/*" name="caratula"/><br><br>-->
+
+
+  <button  type="submit" class="btn btn-1 btn-1d">Create</button><br><br>
+  <!-- <span class="hint upload_field">Supported files: MP3, Wav, and Ogg</span> -->
+  </div>
+</form>

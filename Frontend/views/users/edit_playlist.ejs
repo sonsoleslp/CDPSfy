@@ -1,0 +1,17 @@
+
+<div class="wow bounce total">
+<div class="interna">
+
+<h2 id="playlists">Edit playlist</h2>
+<form id="newpl" action="/user/playlists/edit/<%=id%>?_method=put" method="post">  
+<label for="nombre" class="upload_field">Name:</label><br>
+<input id="plnm" type="text" name="nombre" value="<%=title%>"><br><br>  
+<select name="songsofplaylist" class="seleccion" multiple>
+<%for (var t in tracks) {%>
+ <option  class="opcion" value="<%=tracks[t]._id%>"   <%if(tracks[t].sel){%> selected <%}%>  ><%=tracks[t].name%></option>
+<%}%>
+</select><br>
+
+<button type="submit" class="btn btn-1 btn-1d">Edit</button><br><br>
+</form>
+</div></div>

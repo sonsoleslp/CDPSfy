@@ -1,0 +1,36 @@
+
+mongohost:
+  image: mongo
+  volumes_from:
+    - datadb
+
+web1:
+  image: aalferez/app
+  links:
+    - mongohost
+  volumes_from:
+    - datavol
+
+web2:
+  image: aalferez/app
+  links:
+    - mongohost
+  volumes_from:
+    - datavol
+
+web3:
+  image: aalferez/app
+  links:
+    - mongohost
+  volumes_from:
+    - datavol
+
+balancer:
+  build: Backend/LoadBalancer
+  links:
+    - web1
+    - web2
+    - web3
+  ports:
+    - "8080:8080"
+    - "7070:7070"

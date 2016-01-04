@@ -1,0 +1,14 @@
+<div align="center" class="wow tada total">
+<form action="/user/edit?_method=put" method="post">  
+<div class="wow bounceInUp formulario">
+<%if (session.errors){ %>
+	<%=JSON.stringify(session.errors.message)%><br>
+<%}%>
+  <label  class="upload_field"><b>Change password:</b></label><br><br>
+  <label for="old" class="upload_field">old password:</label><br>
+  <input type="password" name="old" placeholder="old password"><br><br>  
+  <label for="password" class="upload_field">new password:</label><br>
+  <input type="password" name="password" placeholder="new password"><br><br>
+  <button  type="submit" class="btn btn-1 btn-1d">Change password</button><br><br>
+</div>
+</form></div>
