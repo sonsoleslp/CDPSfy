@@ -4,8 +4,8 @@
 	var mongoose = require('mongoose');
 
 
-	mongoose.connect('mongodb://localhost:27017/tracks');
-	//mongoose.connect('mongodb://mongohost:27017/tracks');
+	// mongoose.connect('mongodb://localhost:27017/tracks');
+	mongoose.connect('mongodb://mongohost:27017/tracks');
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
 
