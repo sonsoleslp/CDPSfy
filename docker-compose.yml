@@ -1,36 +1,40 @@
-
 mongohost:
   image: mongo
-  volumes_from:
-    - datadb
+  volumes:
+    - mongodata:/data/db
+  volume_driver: convoy
 
-web1:
-  image: aalferez/app
-  links:
-    - mongohost
-  volumes_from:
-    - datavol
+api1:
+  image: aalferez/api
+  volumes:
+    - musicdata:/API/public/media
+  volume_driver: convoy
 
-web2:
-  image: aalferez/app
-  links:
-    - mongohost
-  volumes_from:
-    - datavol
+api2:
+  image: aalferez/api
+  volumes:
+    - musicdata:/API/public/media
+  volume_driver: convoy
 
-web3:
-  image: aalferez/app
-  links:
-    - mongohost
-  volumes_from:
-    - datavol
+api3:
+  image: aalferez/api
+  volumes:
+    - musicdata:/API/public/media
+  volume_driver: convoy
 
 balancer:
   build: Backend/LoadBalancer
   links:
-    - web1
-    - web2
-    - web3
+    - api1
+    - api2
+    - api3
+  ports:
+    - "7070:7070"
+
+web1:
+  image: aalferez/app
+  links:
+    - balancer
+    - mongohost
   ports:
     - "8080:8080"
-    - "7070:7070"

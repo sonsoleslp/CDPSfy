@@ -1,0 +1,10 @@
+FROM node
+
+# Privado: RUN git clone https://github.com/AntonioAlfrz/CDPSfy.git
+COPY API /API
+
+WORKDIR API
+RUN npm update
+EXPOSE 3000
+
+CMD ["npm", "start"]
