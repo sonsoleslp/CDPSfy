@@ -3,6 +3,7 @@ var track_model = require('./../models/track');
 var request = require('request');
 var FormData = require('form-data');
 var needle = require('needle');
+var apiserver = "http://localhost:3000/"
 
 exports.load = function(req,res,next,trackId){
 	track_model.Track.findById(trackId, function (err, track){
@@ -79,7 +80,7 @@ exports.create = function (req, res) {
 			    content_type : 'application/octet-stream'
 				}
 			}
-			 needle.post("http://localhost:3000/upload/"+song._id, data,{multipart:true}, function(err, resp, body) {
+			 needle.post(apiserver + "upload/"+song._id, data,{multipart:true}, function(err, resp, body) {
 			});			
 			if(caratula != undefined){
 				
@@ -91,7 +92,7 @@ exports.create = function (req, res) {
 				}
 				  
 				}
-				  	needle.post("http://localhost:3000/foto/"+song._id, imagen,{multipart:true}, function(err, resp, body) {
+				  	needle.post(apiserver + "foto/"+song._id, imagen,{multipart:true}, function(err, resp, body) {
 			
 				});
 
@@ -120,7 +121,7 @@ exports.destroy = function (req, res) {
 				img: track.caratula
 
 		}
-		 needle.delete("http://localhost:3000/delete", data, function(err, resp, body) { 
+		 needle.delete(apiserver + "delete", data, function(err, resp, body) { 
 		 	
 		 	track.remove()
 		 	res.redirect('/tracks');
