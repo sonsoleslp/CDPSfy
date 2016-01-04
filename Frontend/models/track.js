@@ -1,8 +1,7 @@
 
-
-
 	var mongoose = require('mongoose');
 
+<<<<<<< HEAD
 	var mongoUrl = 'mongodb://mongohost:27017/tracks'
 	//var mongoUrl = 'mongodb://localhost:27017/tracks'
 	var connectWithRetry = function() {
@@ -16,6 +15,10 @@
 connectWithRetry();
 
 	
+=======
+	// mongoose.connect('mongodb://localhost:27017/tracks');
+	mongoose.connect('mongodb://mongohost:27017/tracks');
+>>>>>>> 5bdc123b9d4f0387988bcb13098b6e314cc5554d
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
 

@@ -7,5 +7,7 @@ docker-compose stop
 docker-compose rm
 (cd Frontend && npm update)
 docker build -t aalferez/app -f Backend/App/Dockerfile --rm=true .
+(cd API && npm update)
+docker build -t aalferez/api -f Backend/API/Dockerfile --rm=true .
 docker-compose build
 docker-compose up
