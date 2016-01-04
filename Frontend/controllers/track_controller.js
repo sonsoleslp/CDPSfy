@@ -3,7 +3,7 @@ var track_model = require('./../models/track');
 var request = require('request');
 var FormData = require('form-data');
 var needle = require('needle');
-var apiserver = "http://localhost:3000/"
+var apiserver = "http://192.168.33.2:3000/"
 
 exports.load = function(req,res,next,trackId){
 	track_model.Track.findById(trackId, function (err, track){
