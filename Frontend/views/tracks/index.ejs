@@ -12,7 +12,7 @@
 <%for (var t in tracks) {%>
 
 <div class="track track_gallery">
-	<a href='/tracks/<%=tracks[t]._id%>'><img class="wow zoomIn galimg" src="http://localhost:3000/media/<%= tracks[t].caratula?   tracks[t]._id+'.'+tracks[t].caratula:'caratula.png'%>">
+	<a href='/tracks/<%=tracks[t]._id%>'><img class="wow zoomIn galimg" src="http://localhost:3000/<%= tracks[t].caratula?   'media/'+tracks[t]._id+'.'+tracks[t].caratula:'images/caratula.png'%>">
 	<p class="songtitle"><%=tracks[t].name%></p>
 </a>
 </div>
