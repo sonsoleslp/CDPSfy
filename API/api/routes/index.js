@@ -14,18 +14,11 @@ router.post('/upload/:songId', function(req, res) {
  upload(req,res, function(err){
  	// console.log(req)
      if (err) console.log(err);
-     
-   fs.rename(PATH+req.file.filename, PATH+req.file.originalname, function(err) {
-      if ( err ) console.log('ERROR: ' + err);
-      console.log('done')
-      res.status(204).end()
-
-
-    });
-
-
-
-
+     fs.rename(PATH+req.file.filename, PATH+req.file.originalname, function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+        console.log('done')
+        res.status(204).end()
+      });
    });
 });
 router.post('/foto/:songId', function(req, res) {
@@ -38,14 +31,8 @@ router.post('/foto/:songId', function(req, res) {
       if ( err ) console.log('ERROR: ' + err);
       console.log('done')
       res.status(204).end()
-
-
     });
-
-
-
-
-   });
+  });
 });
 
 
