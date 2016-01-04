@@ -3,8 +3,8 @@
 
 	var mongoose = require('mongoose');
 
-	// var mongoUrl = 'mongodb://mongohost:27017/tracks'
-	var mongoUrl = 'mongodb://localhost:27017/tracks'
+	var mongoUrl = 'mongodb://mongohost:27017/tracks'
+	//var mongoUrl = 'mongodb://localhost:27017/tracks'
 	var connectWithRetry = function() {
   return mongoose.connect(mongoUrl, function(err) {
     if (err) {
