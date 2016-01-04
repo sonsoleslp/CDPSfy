@@ -25,9 +25,11 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 Frontend/node_modules
+API/api/node_modules
 
 # Debug log from npm
 npm-debug.log
 
 #Files
 Frontend/public/media
+*.mp3
