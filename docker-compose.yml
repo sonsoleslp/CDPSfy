@@ -30,6 +30,7 @@ balancer:
     - api3
   ports:
     - "7070:7070"
+    - "3000:3000"
 
 web1:
   image: aalferez/app

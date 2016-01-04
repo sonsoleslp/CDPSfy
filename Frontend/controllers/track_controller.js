@@ -63,8 +63,8 @@ exports.create = function (req, res) {
 			var ccc = caratula.originalname.split('.')
 			ext = ccc[ccc.length-1]
 		}
-	
-		var song = new track_model.Track({ 
+
+		var song = new track_model.Track({
 				"id": id,
 				"name": name,
 				"ext": tipo,
@@ -81,33 +81,33 @@ exports.create = function (req, res) {
 				}
 			}
 			 needle.post(apiserver + "upload/"+song._id, data,{multipart:true}, function(err, resp, body) {
-			});			
+			});
 			if(caratula != undefined){
-				
+
 				var imagen = {
 				 Caratula: {
 				    buffer       : req.files.caratula.buffer,
 				    filename     : song._id+'.'+ext,
 				    content_type : 'application/octet-stream'
 				}
-				  
+
 				}
 				  	needle.post(apiserver + "foto/"+song._id, imagen,{multipart:true}, function(err, resp, body) {
-			
+
 				});
 
 
 			}
-		
+
 
 
 		});
-		
+
 		res.redirect('/tracks');
 	}
 };
 
-// Borra una canción (trackId) del registro de canciones 
+// Borra una canción (trackId) del registro de canciones
 // TODO:
 // - Eliminar en tracks.cdpsfy.es el fichero de audio correspondiente a trackId
 exports.destroy = function (req, res) {
@@ -121,17 +121,16 @@ exports.destroy = function (req, res) {
 				img: track.caratula
 
 		}
-		 needle.delete(apiserver + "delete", data, function(err, resp, body) { 
-		 	
+		 needle.delete(apiserver + "delete", data, function(err, resp, body) {
+
 		 	track.remove()
 		 	res.redirect('/tracks');
 
 
-		});		
+		});
 
 
-		
+
 	});
-	
-};
 
+};
