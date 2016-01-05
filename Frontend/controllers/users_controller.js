@@ -2,10 +2,11 @@ var track_model = require('./../models/track');
 var key = "7962564a5ebdd1e07c196eefb7b86ed34bfb166f8a4160b3a107b32374b28820"// process.env.MY_SECRET_KEY
 var encryptor = require('simple-encryptor')(key);
 
-// process.env.MY_SECRET_KEY
 
-exports.autenticar = function(login,password,callback){
-}
+/*exports.autenticar = function(login,password,callback){
+}*/
+
+// Extra el usuario de la base de datos a partir de la URL
 exports.load = function(req,res,next,userId){
 	var user = track_model.Users.find( { name:req.body.nombre }, function (err, user) {
 		console.log(err)
@@ -16,10 +17,13 @@ exports.load = function(req,res,next,userId){
 		} else {next(new Error('Wrong userId=' + userId))}
 	})
 }
-exports.new = function(req,res){
 
+//Página de creación de usuario nuevo
+exports.new = function(req,res){
 	res.render('users/new')
 }
+
+//Creación de usuario nuevo
 exports.create = function(req,res){
 
 	var password = req.body.password
@@ -50,6 +54,8 @@ exports.create = function(req,res){
 	})
   }
 }
+
+//Cambiar la contraseña
 exports.update = function(req,res,next){
 	var conditions = { name: req.session.user.name, password: encryptor.encrypt(req.body.old)}
   , update = { $set: { password: encryptor.encrypt(req.body.password) } }
@@ -69,6 +75,7 @@ exports.update = function(req,res,next){
 	  }
 	});
 }
+//Borrar usuario
 exports.elimina = function(req,res,next){
 		console.log(req.session.user)
 	  track_model.Users.remove({name: req.session.user.name}, function(err,user){
@@ -77,6 +84,8 @@ exports.elimina = function(req,res,next){
 	  	next()
 	  }); 
 }
+
+//Lista de usuarios
 exports.list = function(req,res){
 	track_model.Users.find(function (err, users) {
 	  if (err) return console.error(err);
@@ -85,49 +94,55 @@ exports.list = function(req,res){
 	  res.render('users/index', {users: users});
 	})
 }
+
+//Página de inicio de sesión
 exports.signin = function(req,res){
 	console.log(req.session.errors)
 	var errors = req.session.errors || {}
 	req.session.errors = {};
 	res.render('users/login', {errors: errors})
 }
+
+//Inicio de sesión
 exports.login = function(req,res){
 	var user = track_model.Users.find( { name: req.body.nombre }, function (err, user) {
-	  if (err){ 
+	  	if (err){ 
 
-	  	console.log('usuario incorrecto')
-	  	req.session.errors = [{"message":'Error: '+error}]
-	  	res.redirect("/user/login")
-	  	return console.error(err);
-	  } else if (user && user.length > 0 ){
+		  	console.log('usuario incorrecto')
+		  	req.session.errors = [{"message":'Error: '+error}]
+		  	res.redirect("/user/login")
+		  	return console.error(err);
+	  	} else if (user && user.length > 0 ){
 	  		console.log(user)
 	  		
 	  		var contra =  encryptor.decrypt(user[0].password)
 
 	  	
-		  if(contra == req.body.password ){
-		  	console.log("entraaaa")
-			  req.session.user = {id:user[0].id, name:user[0].name}
+		 	if(contra == req.body.password ){
+		  		console.log("entraaaa")
+			 	req.session.user = {id:user[0].id, name:user[0].name}
 
-			  res.redirect(req.session.redir.toString());
-		  } else { 
-	  		req.session.errors = {"message": ''+ new Error('Wrong password')}
-	  		res.redirect("/user/login")
-		  }
-	  } else {
-	  	req.session.errors = {"message": ''+ new Error('Wong username')}
-	  	res.redirect("/user/login")
-	  }
+			  	res.redirect(req.session.redir.toString());
+		  	} else { 
+		  		req.session.errors = {"message": ''+ new Error('Wrong password')}
+		  		res.redirect("/user/login")
+		  	}
+	  	} else {
+		  	req.session.errors = {"message": ''+ new Error('Wong username')}
+		  	res.redirect("/user/login")
+		}
 
-	});
-	
-	// res.render('users/profile',{user: user})
+	});	
 }
+
+//Perfil de usuario
 exports.user = function(req,res){
 	var user = req.session.user
 	console.log(user)
 	res.render('users/profile',{user: user})
 }
+
+//Página de cambio de contraseña
 exports.changePassword = function(req, res) { 
 	var errors = req.session.errors || {}
 	req.session.errors = {};

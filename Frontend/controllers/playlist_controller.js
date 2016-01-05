@@ -1,21 +1,23 @@
 var track_model = require('./../models/track');
+//Carga la playlist a partir de la URL
 exports.playlistload = function(req,res,next,playlistId){
-
 	if(req.session.user){
-	track_model.Users.find( { name: req.session.user.name }, function (err, user) {
-	 	if(user){
-	 
-			var playlists = user[0].playlists || "[]"
-
-
-			playlists = JSON.parse(playlists)
-			req.session.playlist = playlists[playlistId]
-			req.session.playlistId = playlistId
-			next()
- } else {
- 	res.redirect("/user/login")
- }})} else {	res.redirect("/user/login")}
+		track_model.Users.find( { name: req.session.user.name }, function (err, user) {
+		 	if(user){
+				var playlists = user[0].playlists || "[]"
+				playlists = JSON.parse(playlists)
+				req.session.playlist = playlists[playlistId]
+				req.session.playlistId = playlistId
+				next()
+			} else {
+	 		res.redirect("/user/login")
+	 		}
+ 		});
+	} else {	
+		res.redirect("/user/login")
+	}
 }
+//Lista las playlists del usuario logueado
 exports.playlists = function(req,res){
 	var playlists = []
 	 track_model.Users.find( { name: req.session.user.name }, function (err, user) {
@@ -25,21 +27,22 @@ exports.playlists = function(req,res){
 	 		if (playlists != '') {
 	 			 rr =  JSON.parse(playlists)
 	 		}
-	
 	 		res.render('users/playlists',{ playlists: rr })
 	 	} else {
 	 		res.render('users/playlists',{ playlists: [] })
 		}
 	 })
 }
+//Página de creación de playlist nueva
 exports.newplaylist = function(req,res){
 	track_model.Track.find(function (err, tracks) {
 	  if (err) return console.error(err);
 	  res.render('users/new_playlist',{tracks: tracks})
 	})
 }
+//Crea playlist nueva
 exports.createplaylist = function(req,res,next){
-	 track_model.Users.find( { name: req.session.user.name }, function (err, user) {
+	track_model.Users.find( { name: req.session.user.name }, function (err, user) {
 	 	if(user){
 			var playlists = user[0].playlists || "[]"
 			playlists = JSON.parse(playlists)
@@ -67,6 +70,7 @@ exports.createplaylist = function(req,res,next){
 		}
 	});
 }
+//Muestra playlist seleccionada
 exports.showplaylist = function(req,res, next){
 	track_model.Track.find(function (err, tracks) {
 		if (err) return console.error(err);
@@ -88,8 +92,9 @@ exports.showplaylist = function(req,res, next){
 
 	})
 }
+//Actualiza playlist tras su edición
 exports.editplaylist = function(req,res,next){
-	 track_model.Users.find( { name: req.session.user.name }, function (err, user) {
+	track_model.Users.find( { name: req.session.user.name }, function (err, user) {
 	 	if(user){
 			var playlists = user[0].playlists || "[]"
 			playlists = JSON.parse(playlists)
@@ -118,6 +123,7 @@ exports.editplaylist = function(req,res,next){
 		}
 	});
 }
+//Página de edición de playlists
 exports.edit = function(req,res,next){
 	track_model.Track.find(function (err, tracks) {
 	if (err) return console.error(err);
@@ -125,14 +131,15 @@ exports.edit = function(req,res,next){
 		if(req.session.playlist){
 			var songs = []
 			if (req.session.playlist.songs != undefined){
-			tracks.forEach(function(tr){
-				if (req.session.playlist.songs.indexOf(''+tr._id) >=0 ){
-					tr.sel = 1
-									}
-				songs.push(tr)
+				tracks.forEach(function(tr){
+					if (req.session.playlist.songs.indexOf(''+tr._id) >=0 ){
+						tr.sel = 1 
+					}
+					songs.push(tr)
 
-			})} else { songs = tracks}
-				  res.render('users/edit_playlist', {title: req.session.playlist["name"], tracks: songs, id: req.session.playlistId});
+				})
+			} else { songs = tracks}
+			res.render('users/edit_playlist', {title: req.session.playlist["name"], tracks: songs, id: req.session.playlistId});
 
 		} else {
 			res.render('tracks/index', {title: 'No existe', tracks: tracks, id: req.session.playlistId});
@@ -140,6 +147,7 @@ exports.edit = function(req,res,next){
 		}
 	})
 }
+//Elimina playlist
 exports.removeplaylist = function(req,res,next){
 	 track_model.Users.find( { name: req.session.user.name }, function (err, user) {
 	 	if(user){
@@ -148,8 +156,8 @@ exports.removeplaylist = function(req,res,next){
 			var aux = playlists.splice(req.session.playlistId)
 			aux.shift()
 			playlists = playlists.concat(aux)
-			 var playlists = JSON.stringify(playlists)
-			var conditions = { name: req.session.user.name}
+			var playlists = JSON.stringify(playlists)
+			  , conditions = { name: req.session.user.name}
 			  , update = { $set: { playlists: playlists } }
 			  , options = { multi: false };
 

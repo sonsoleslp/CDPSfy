@@ -1,9 +1,10 @@
 
+//Administra el cierre de sesión
 exports.destroy = function(req,res){
 	delete req.session.user
 	res.redirect(req.session.redir.toString())
 }
-
+//Comprueba que se ha iniciado sesión para acceder a determinadas funcionalidades
 exports.loginRequired = function(req,res,next){
 	if(req.session.user){
 		next()
@@ -11,6 +12,7 @@ exports.loginRequired = function(req,res,next){
 		res.redirect('/user/login')
 	}
 }
+//Función para development, borra la base de datos de canciones y usuarios
 /*
 exports.dump = function (req, res) {
 
