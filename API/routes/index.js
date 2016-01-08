@@ -3,35 +3,31 @@ var router = express.Router();
 var  multer = require("multer");
 var  fs = require("fs");
 var PATH = 'public/media/'
-var upload = multer({dest: PATH}).single("Song");
-var foto = multer({dest: PATH}).single("Caratula");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, PATH)
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+    
+  }
+});
+var upload = multer({storage: storage}).single("Song");
+var foto = multer({storage: storage}).single("Caratula");
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 router.post('/upload/:songId', function(req, res) {
-	//console.log(req)
  upload(req,res, function(err){
- 	// console.log(req)
-     if (err) console.log(err);
-     fs.rename(PATH+req.file.filename, PATH+req.file.originalname, function(err) {
-        if ( err ) console.log('ERROR: ' + err);
-        console.log('done')
-        res.status(204).end()
-      });
+    if (err) console.log(err);
+    res.status(204).end()
    });
 });
 router.post('/foto/:songId', function(req, res) {
-	//console.log(req)
  foto(req,res, function(err){
- 	// console.log(req)
      if (err) console.log(err);
-     
-   fs.rename(PATH+req.file.filename, PATH+req.file.originalname, function(err) {
-      if ( err ) console.log('ERROR: ' + err);
-      console.log('done')
-      res.status(204).end()
-    });
+     res.status(204).end()
   });
 });
 

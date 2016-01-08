@@ -4,21 +4,21 @@ var request = require('request');
 var FormData = require('form-data');
 var needle = require('needle');
 var apiserver = "http://192.168.33.2:3000/"
+// var apiserver = "http://localhost:3000/"
 
+//Carga la canción a partir de la URL
 exports.load = function(req,res,next,trackId){
 	track_model.Track.findById(trackId, function (err, track){
 
-	  if (track) {
-	  	req.track = track
-	  	next()
-	  } else if (err){
-		 next(new Error('No existe'))
-	  }
+		  if (track) {
+		  	req.track = track
+		  	next()
+		  } else if (err){
+			 next(new Error('No existe'))
+		  }
 
-});
-
+	});
 }
-
 
 // Devuelve una lista de las canciones disponibles y sus metadatos
 exports.list = function (req, res) {
