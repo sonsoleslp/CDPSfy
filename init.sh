@@ -4,10 +4,15 @@
 #docker create -v /CDPSfy/Frontend/public/media --volume-driver=convoy --name datavol aalferez/app /bin/true
 #docker create -v /data/db --volume-driver=convoy --name datadb mongo /bin/true
 docker-compose stop
-docker-compose rm
+docker-compose rm -f
+
 (cd Frontend && npm update)
 docker build -t aalferez/app -f Backend/App/Dockerfile --rm=true .
+
 (cd API && npm update)
 docker build -t aalferez/api -f Backend/API/Dockerfile --rm=true .
+
 docker-compose build
 docker-compose up
+
+#docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' cdpsfy_mongohost_1
