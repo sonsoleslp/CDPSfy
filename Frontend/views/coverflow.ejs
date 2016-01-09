@@ -8,7 +8,7 @@
 
 
 
-<div class="my-flipster wow fadeInUp ">
+<div id="covers" class="my-flipster wow fadeInUp " tabindex="1">
   <ul>
   <%for (var t in tracks) {%>
     <li><a href='/tracks/<%=tracks[t]._id%>'><img class="fotooo" src="http://192.168.33.2:3000/<%= tracks[t].caratula?   'media/'+tracks[t]._id+'.'+tracks[t].caratula:'images/caratula.png'%>"><p class="songtitle"><%=tracks[t].name%></p></a></li>
@@ -20,6 +20,7 @@
 <script src="/coverflow/jquery.flipster.min.js"></script>
 <script>
     $('.my-flipster').flipster();
+     document.getElementById("covers").focus();
 </script>              
 
 
