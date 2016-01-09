@@ -25,7 +25,7 @@ exports.list = function (req, res) {
 
 	track_model.Track.find(function (err, tracks) {
 	  if (err) return console.error(err);
-	  res.render('tracks/index',  {title: 'All tracks', tracks: tracks});
+	  res.render('coverflow',  {title: 'All tracks', tracks: tracks});
 	})
 };
 

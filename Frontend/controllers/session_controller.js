@@ -2,7 +2,7 @@
 //Administra el cierre de sesión
 exports.destroy = function(req,res){
 	delete req.session.user
-	res.redirect(req.session.redir.toString())
+	res.redirect('/user/login')
 }
 //Comprueba que se ha iniciado sesión para acceder a determinadas funcionalidades
 exports.loginRequired = function(req,res,next){

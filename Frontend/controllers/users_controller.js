@@ -3,9 +3,6 @@ var key = "7962564a5ebdd1e07c196eefb7b86ed34bfb166f8a4160b3a107b32374b28820"// p
 var encryptor = require('simple-encryptor')(key);
 
 
-/*exports.autenticar = function(login,password,callback){
-}*/
-
 // Extra el usuario de la base de datos a partir de la URL
 exports.load = function(req,res,next,userId){
 	var user = track_model.Users.find( { name:req.body.nombre }, function (err, user) {
@@ -57,23 +54,46 @@ exports.create = function(req,res){
 
 //Cambiar la contraseña
 exports.update = function(req,res,next){
-	var conditions = { name: req.session.user.name, password: encryptor.encrypt(req.body.old)}
-  , update = { $set: { password: encryptor.encrypt(req.body.password) } }
-  , options = { multi: false };
 
 
-	track_model.Users.update(conditions, update, options, function (err, user) {
-			if (err) {
-		req.session.errors = {"message": ''+ new Error('Wrong password')}
-	  	res.redirect("/user/edit")
+	var password = req.body.password
+	var old = req.body.old
 
-	  } else if (user){
-	  	res.redirect("/user/profile")
-	  } else {
-	  	req.session.errors = {"message": ''+ new Error('Wrong password')}
-	  	res.redirect("/user/edit")
-	  }
-	});
+	if (password == ''){
+		req.session.errors = {"message": ''+ new Error('Invalid password')}
+			res.redirect('/user/edit')
+	} else {	
+
+	  	var user = track_model.Users.findOne( { name: req.session.user.name }, function (err, user) {
+	  	if (err){ 
+
+		  	console.log('incorrecto')
+		  	req.session.errors = [{"message":'Error: '+error}]
+		  	res.redirect("/user/edit")
+		  	return console.error(err);
+	  	} else if (user){
+	  		console.log(user)
+	  		
+	  		var contra =  encryptor.decrypt(user.password)
+
+	  		console.log(contra)
+		 	if(contra == req.body.old ){
+		  		console.log("entraaaa")
+		  		user.password = encryptor.encrypt(password)
+		  		user.save()
+			  	res.redirect("/user/profile")
+		  	} else { 
+		  		req.session.errors = {"message": ''+ new Error('Wrong password')}
+		  		res.redirect("/user/edit")
+		  	}
+	  	} else {
+		  	req.session.errors = {"message": ''+ new Error('Wong username')}
+		  	res.redirect("/user/edit")
+		}
+
+	});	
+
+	}
 }
 //Borrar usuario
 exports.elimina = function(req,res,next){
@@ -134,7 +154,7 @@ exports.login = function(req,res){
 
 	});	
 }
-
+ 
 //Perfil de usuario
 exports.user = function(req,res){
 	var user = req.session.user
