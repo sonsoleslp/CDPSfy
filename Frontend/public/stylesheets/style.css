@@ -21,7 +21,7 @@ right{
 
 body {
 	/*background-color: white;*/
-	background-image: url('../images/patt.jpg');
+	background-image: url('../images/img.png');
 	/*padding: 50px;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
 	overflow-y:scroll;
@@ -178,6 +178,7 @@ h1 a {
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
+  box-shadow: none;
 
 }
 .flipster__item .songtitle{
@@ -552,10 +553,12 @@ input[type="file"]{
 	text-align: center;
 }
 .plist{
-	background-color: #ddd;
+	background-color: #444;
+
 	margin:2px;
 	padding: 6px;
-	color:#111 !important;
+	color:#111;
+	color:white  !important;;
 	text-align: left;
 	margin: 5px;
 	transition: all 0.5s ease-in-out;
@@ -626,4 +629,10 @@ label {
 
 	margin-top:0;
 
+}
+
+::selection{
+
+	background-color: #05E28E;
+	color:white;
 }

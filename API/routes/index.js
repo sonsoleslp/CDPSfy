@@ -20,13 +20,13 @@ router.get('/', function(req, res) {
 });
 router.post('/upload/:songId', function(req, res) {
  upload(req,res, function(err){
-    if (err) console.log(err);
+    if (err) {console.log(err);res.status(404).end()}
     res.status(204).end()
    });
 });
 router.post('/foto/:songId', function(req, res) {
  foto(req,res, function(err){
-     if (err) console.log(err);
+     if (err) {console.log(err);res.status(404).end()}
      res.status(204).end()
   });
 });

@@ -8,10 +8,10 @@
 
 
 
-<div id="covers" class="my-flipster wow fadeInUp " tabindex="1">
+<div id="covers"  class="my-flipster wow fadeInUp " >
   <ul>
   <%for (var t in tracks) {%>
-    <li><a href='/tracks/<%=tracks[t]._id%>'><img class="fotooo" src="http://192.168.33.2:3000/<%= tracks[t].caratula?   'media/'+tracks[t]._id+'.'+tracks[t].caratula:'images/caratula.png'%>"><p class="songtitle"><%=tracks[t].name%></p></a></li>
+    <li tabindex="0"><a href='/tracks/<%=tracks[t]._id%>'><img class="fotooo" src="http://192.168.33.2:3000/<%= tracks[t].caratula?   'media/'+tracks[t]._id+'.'+tracks[t].caratula:'images/caratula.png'%>"><p class="songtitle"><%=tracks[t].name%></p></a></li>
     <%}%>
   </ul>
 </div>
@@ -19,8 +19,13 @@
  <script src="/coverflow/jquery.min.js"></script>
 <script src="/coverflow/jquery.flipster.min.js"></script>
 <script>
-    $('.my-flipster').flipster();
-     document.getElementById("covers").focus();
+    var myFlipster = $('.my-flipster').flipster({  loop: true});
+    
+                   window.onload = function(){
+
+    document.getElementById('covers').scrollIntoView()
+    }
+
 </script>              
 
 
