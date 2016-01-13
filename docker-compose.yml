@@ -3,6 +3,9 @@ mongohost:
   volumes:
     - mongodata:/data/db
   volume_driver: convoy
+  # Nagios
+  ports:
+    - "27017:27017"
 
 api1:
   image: aalferez/api

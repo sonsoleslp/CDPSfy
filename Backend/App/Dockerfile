@@ -4,7 +4,7 @@ FROM node
 COPY Frontend /CDPSfy
 
 WORKDIR CDPSfy
-RUN npm update
+RUN ["npm", "update"]
 EXPOSE 8080
 
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "start"]
