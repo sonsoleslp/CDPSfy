@@ -3,8 +3,11 @@ var track_model = require('./../models/track');
 var request = require('request');
 var FormData = require('form-data');
 var needle = require('needle');
-var apiserver = "http://192.168.33.2:3000/"
-// var apiserver = "http://localhost:3000/"
+
+//Cambiar para desarrollo en local o para despliegue
+// var apiserver = "http://192.168.33.2:3000/" 
+var apiserver = "http://localhost:3000/"
+exports.apiserver = apiserver;
 
 //Carga la canción a partir de la URL
 exports.load = function(req,res,next,trackId){
@@ -25,7 +28,7 @@ exports.list = function (req, res) {
 
 	track_model.Track.find(function (err, tracks) {
 	  if (err) return console.error(err);
-	  res.render('coverflow',  {title: 'All tracks', tracks: tracks});
+	  res.render('coverflow',  {title: 'All tracks', tracks: tracks, url: apiserver});
 	})
 };
 
@@ -39,7 +42,7 @@ exports.new = function (req, res) {
 // El campo track.url contiene la url donde se encuentra el fichero de audio
 exports.show = function (req, res) {
 	console.log(req.track._id)
-	res.render('tracks/show', {track: req.track});
+	res.render('tracks/show', {track: req.track, url: apiserver});
 };
 
 // Escribe una nueva canción en el registro de canciones.

@@ -64,17 +64,24 @@ input{
 	vertical-align: middle !important;
 
 }
+
 h1 span#title{
-	
 	vertical-align: middle !important;
-
-
 }
 
 
 .delete{
 	background-color: none;
+	transition: all 1s ease-in-out;
 }
+
+.delete:hover{
+	-webkit-transform: scale(1.1,1.1);
+	-moz-transform:scale(1.1,1.1);
+	-ms-transform: scale(1.1,1.1);
+	transform: scale(1.1,1.1);
+}
+
 #title{
 	font-family: 'komodaregular';
 	font-size:15em;
@@ -623,6 +630,9 @@ label {
 
 .fotooo {
 	width:18em;
+	border-style: solid;
+	border-width: 2px;
+	border-color:rgba(255,255,255,0.6);
 }
 
 #cft{

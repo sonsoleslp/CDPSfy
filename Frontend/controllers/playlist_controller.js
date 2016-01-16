@@ -1,4 +1,5 @@
 var track_model = require('./../models/track');
+var apiserver = require('./track_controller').apiserver
 //Carga la playlist a partir de la URL
 exports.playlistload = function(req,res,next,playlistId){
 	if(req.session.user){
@@ -83,10 +84,10 @@ exports.showplaylist = function(req,res, next){
 					}
 				})
 			} else {songs= tracks}
-					  res.render('tracks/index', {title: req.session.playlist["name"], id: req.session.playlistId, tracks: songs});
+					  res.render('tracks/index', {title: req.session.playlist["name"], id: req.session.playlistId, tracks: songs, url: apiserver});
 
 			} else {
-						  res.render('tracks/index', {tracks: tracks});
+						  res.render('tracks/index', {tracks: tracks, url: apiserver});
 
 			}
 

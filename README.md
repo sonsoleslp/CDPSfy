@@ -3,13 +3,13 @@ CDPSfy
 
 Use
 -------------
-En el directorio principal del proyecto, abrir dos terminales y ejecutar los siguientes comandos en uno de ellos:
+En el directorio principal del proyecto, abrir un terminal y ejecutar los siguientes comandos:
 
     $ (cd Backend/Nas && vagrant up)
     $ mkdir ~/gluster # Directorio donde se montara Gluster mediante NFS
     $ bash convoy.sh
 
-Abrir máquina virtual Ubuntu en Vbox. En un terminal ejecutar lo siguiente:
+Abrir máquina virtual Ubuntu en VirtualBox. En un terminal ejecutar lo siguiente:
 
     $ sudo convoy create musicdata
     $ sudo convoy create mongodata

@@ -1,15 +1,17 @@
 
-	var mongoose = require('mongoose');
+var mongoose = require('mongoose');
+//Cambiar para desarrollo en local o para despliegue
+var mongoUrl = 'mongodb://mongohost:27017/tracks'
+// var mongoUrl = 'mongodb://localhost:27017/tracks'
 
-	var mongoUrl = 'mongodb://mongohost:27017/tracks'
-	// var mongoUrl = 'mongodb://localhost:27017/tracks'
 
-	var connectWithRetry = function() {
+// Try to connect to mongo server every 5 seconds until success
+var connectWithRetry = function() {
   return mongoose.connect(mongoUrl, function(err) {
     if (err) {
       console.error('Failed to connect to mongo on startup - retrying in 5 sec', err);
       setTimeout(connectWithRetry, 5000);
-    }
+    } else {console.log("Connected to MongoDB");}
   });
 };
 connectWithRetry();
