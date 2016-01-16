@@ -9,8 +9,7 @@ En el directorio principal del proyecto, abrir dos terminales y ejecutar los sig
     $ mkdir ~/gluster # Directorio donde se montara Gluster mediante NFS
     $ bash convoy.sh
 
-
-Y en el otro terminal ejecutar lo siguiente:
+Abrir máquina virtual Ubuntu en Vbox. En un terminal ejecutar lo siguiente:
 
     $ sudo convoy create musicdata
     $ sudo convoy create mongodata
