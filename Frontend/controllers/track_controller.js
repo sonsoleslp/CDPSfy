@@ -5,7 +5,9 @@ var FormData = require('form-data');
 var needle = require('needle');
 
 //Cambiar para desarrollo en local o para despliegue
+
 var apiserver = "http://192.168.33.2:3000/" 
+
 // var apiserver = "http://localhost:3000/"
 exports.apiserver = apiserver;
 

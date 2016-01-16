@@ -43,11 +43,17 @@ web2:
   links:
     - balancer_api
     - mongohost
+web3:
+  image: aalferez/app
+  links:
+    - balancer_api
+    - mongohost
 balancer_web:
   build: Backend/LoadBalancer/Web
   links:
     - web1
     - web2
+    - web3
   ports:
     - "7070:7070"
     - "8002:8080"
