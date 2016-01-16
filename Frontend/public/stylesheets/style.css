@@ -188,6 +188,11 @@ h1 a {
   box-shadow: none;
 
 }
+
+.flipster__item{
+	outline:none;
+}
+
 .flipster__item .songtitle{
 	width:18em;
 	display: none;
@@ -512,8 +517,14 @@ input[type="text"]{
 	font-family:'Lato'; 
 }
 
+
+
 input[type="file"]{
 	max-width:90%;
+}
+
+.input{
+	font-size: 150%;
 }
 
 .opt{

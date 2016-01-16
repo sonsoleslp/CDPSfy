@@ -5,12 +5,12 @@
 
 	<p><%=track.name%></p>
 	<audio src="<%=url%>media/<%=track._id%>.<%=track.ext%>" type="audio/mpeg" controls="controls"></audio>
-
+ <% if (session.user) {%>
 	<form method="post" action="/tracks/<%=track.id%>?_method=delete">
 	    <button id="elimina" type="submit" onClick="return confirm('Delete: <%=track.name%>. Are you sure? ');">
 	      <img class="wow rubberBand delete" src="/images/delete.png">
-	    </button>
+	    </button> 
   	</form>
+ <% } %>
 </div>
 </div>
-<!--192.168.33.2-->
