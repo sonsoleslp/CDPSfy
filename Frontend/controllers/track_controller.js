@@ -5,8 +5,8 @@ var FormData = require('form-data');
 var needle = require('needle');
 
 //Cambiar para desarrollo en local o para despliegue
-// var apiserver = "http://192.168.33.2:3000/" 
-var apiserver = "http://localhost:3000/"
+var apiserver = "http://execute.ddns.net:3000/" 
+// var apiserver = "http://localhost:3000/"
 exports.apiserver = apiserver;
 
 //Carga la canción a partir de la URL
