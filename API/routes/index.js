@@ -4,11 +4,11 @@ var multer = require("multer");
 var fs = require("fs");
 var PATH = 'public/media/'
 var storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, PATH)
+  destination: function (req, data, func) {
+    func(null, PATH)
   },
-  filename: function (req, file, callback) {
-    callback(null, file.originalname);
+  filename: function (req, data, func) {
+    func(null, data.originalname);
     
   }
 });
