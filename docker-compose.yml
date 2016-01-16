@@ -12,33 +12,42 @@ api1:
   volumes:
     - musicdata:/API/public/media
   volume_driver: convoy
-
 api2:
   image: aalferez/api
   volumes:
     - musicdata:/API/public/media
   volume_driver: convoy
-
 api3:
   image: aalferez/api
   volumes:
     - musicdata:/API/public/media
   volume_driver: convoy
 
-balancer:
-  build: Backend/LoadBalancer
+balancer_api:
+  build: Backend/LoadBalancer/API
   links:
     - api1
     - api2
     - api3
   ports:
-    - "7070:7070"
+    - "7071:7071"
     - "3000:3000"
 
 web1:
   image: aalferez/app
   links:
-    - balancer
+    - balancer_api
     - mongohost
+web2:
+  image: aalferez/app
+  links:
+    - balancer_api
+    - mongohost
+balancer_web:
+  build: Backend/LoadBalancer/Web
+  links:
+    - web1
+    - web2
   ports:
+    - "7070:7070"
     - "8002:8080"
