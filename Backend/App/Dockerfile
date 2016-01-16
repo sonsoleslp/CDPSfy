@@ -1,10 +1,10 @@
 FROM node
 
 # Privado: RUN git clone https://github.com/sonsoleslp/CDPSfy.git
-COPY Frontend /CDPSfy
+COPY Frontend /Frontend
 
-WORKDIR CDPSfy
-RUN npm update
+WORKDIR Frontend
+RUN ["npm", "update"]
 EXPOSE 8080
 
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "start"]

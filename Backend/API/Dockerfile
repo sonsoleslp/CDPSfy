@@ -4,7 +4,7 @@ FROM node
 COPY API /API
 
 WORKDIR API
-RUN npm update
+RUN ["npm" ,"update"]
 EXPOSE 3000
 
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "start"]
